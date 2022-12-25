@@ -10,11 +10,13 @@ import {
 import classNames from "classnames";
 import { SidebarContext } from "../contexts/sidebar";
 import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
+import Navigation from "../types/navigation";
 
-const navigation = [
-  { name: "client", href: "#", icon: UserCircleIcon, current: false },
-  { name: "users", href: "#", icon: UsersIcon, current: true },
-  { name: "settings", href: "#", icon: Cog6ToothIcon, current: false },
+const navigation: Navigation[] = [
+  { name: "client", href: "/", icon: UserCircleIcon },
+  { name: "users", href: "/users", icon: UsersIcon },
+  { name: "settings", href: "/settings", icon: Cog6ToothIcon },
 ];
 
 const Sidebar: React.FC = () => {
@@ -77,29 +79,21 @@ const Sidebar: React.FC = () => {
                 </Transition.Child>
                 <div className="h-0 flex flex-col flex-1 overflow-y-auto pt-5 pb-4 px-2">
                   <div className="flex flex-shrink-0 items-center">
-                    <img className="h-12" alt="Prediko" src="logo.png" />
+                    <img className="h-12 w-12" alt="Prediko" src="logo.png" />
                   </div>
                   <nav className="mt-5 space-y-4 flex-1">
                     {navigation.map((item) => (
-                      <a
+                      <NavLink
                         key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-[#3E6BEC] text-white"
-                            : "text-[#A4A8BB]",
-                          "group flex items-center px-2 py-2 text-base font-medium rounded-md"
-                        )}
+                        to={item.href}
+                        className="group flex items-center px-2 py-2 text-base font-medium rounded-md text-[#A4A8BB] active:bg-[#3E6BEC] active:text-white"
                       >
                         <item.icon
-                          className={classNames(
-                            item.current ? "text-white" : "text-[#A4A8BB]",
-                            "mr-4 flex-shrink-0 h-6 w-6"
-                          )}
+                          className="mr-4 flex-shrink-0 h-6 w-6 active:text-white text-[#A4A8BB]"
                           aria-hidden="true"
                         />
                         {t(item.name)}
-                      </a>
+                      </NavLink>
                     ))}
                   </nav>
                   <div className="group flex items-center px-2 py-2 text-base font-medium rounded-md text-[#A4A8BB]">
@@ -118,31 +112,32 @@ const Sidebar: React.FC = () => {
       </Transition.Root>
 
       <div className="hidden md:fixed md:inset-y-0 md:flex md:flex-col">
-        <div className="flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-white">
+        <div className="flex min-h-0 flex-1 flex-col bg-white">
           <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4 px-[26px]">
             <div className="flex flex-shrink-0 items-center">
               <img className="h-12 w-auto" src="logo.png" alt="Prediko" />
             </div>
             <nav className="mt-12 flex-1 space-y-12 bg-white">
               {navigation.map((item) => (
-                <a
+                <NavLink
                   key={item.name}
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-[#3E6BEC]"
-                      : "hover:bg-gray-50 bg-[#F7F7F7]",
-                    "group flex items-center justify-center h-12 w-12 text-sm font-medium rounded-xl"
-                  )}
+                  to={item.href}
+                  className={({ isActive }) =>
+                    classNames(
+                      "group flex items-center justify-center h-12 w-12 text-sm font-medium rounded-xl",
+                      {
+                        "bg-[#3E6BEC] text-white": isActive,
+                        "bg-[#F7F7F7] text-[#A4A8BB] hover:bg-gray-50":
+                          !isActive,
+                      }
+                    )
+                  }
                 >
                   <item.icon
-                    className={classNames(
-                      item.current ? "text-white" : "text-[#A4A8BB]",
-                      "flex-shrink-0 h-6 w-6"
-                    )}
+                    className="flex-shrink-0 h-6 w-6"
                     aria-hidden="true"
                   />
-                </a>
+                </NavLink>
               ))}
             </nav>
             <div className="group flex items-center justify-center h-12 w-12 text-sm font-medium rounded-xl hover:bg-gray-50 bg-[#F7F7F7]">
