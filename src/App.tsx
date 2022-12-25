@@ -1,26 +1,29 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import Main from "./containers/Main";
+import Sidebar from "./containers/Sidebar";
+import SidebarProvider from "./contexts/sidebar";
+import en from "./translations/en";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: en,
+    },
+  },
+  lng: "en",
+  fallbackLng: "en",
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
+const App: React.FC = () => (
+  <SidebarProvider>
+    <Sidebar />
+    <Main />
+  </SidebarProvider>
+);
 
 export default App;
