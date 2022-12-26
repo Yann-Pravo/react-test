@@ -1,8 +1,9 @@
 type User = {
-  firstname: string;
-  lastname: string;
-  role: string;
+  id: string;
+  first_name: string;
+  last_name: string;
   email: string;
+  role: string;
 };
 
 export default User;

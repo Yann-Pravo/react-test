@@ -21,11 +21,14 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
     )}
     <div>
       <select
+        id={id}
         {...props}
         className="focus:drop-shadow-xl border border-[#8F92A133] h-[48px] px-[14px] w-full"
       >
         {values.map(({ value, text }) => (
-          <option value={value}>{t(text)}</option>
+          <option value={value} key={value}>
+            {t(text)}
+          </option>
         ))}
       </select>
     </div>

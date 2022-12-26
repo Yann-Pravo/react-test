@@ -16,8 +16,10 @@ const translations = {
   "insert-lastname": "Insert last name",
   "insert-email": "Insert email address",
   "select-role": "Select role",
-  administrator: "Administrator",
-  "regular-user": "Regular user",
+  ADMIN: "Administrator",
+  DEV: "Regular user",
+  loading: "Loading...",
+  "delete-user": "Delete user",
 };
 
 export default translations;

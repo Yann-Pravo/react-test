@@ -1,37 +1,12 @@
 import React, { useMemo, useState } from "react";
+import useGetUsers from "../api/useGetUsers";
 import User from "../types/user";
-
-const usersList: User[] = [
-  {
-    firstname: "David",
-    lastname: "Leclerc",
-    role: "Administrator",
-    email: "david@test.com",
-  },
-  {
-    firstname: "Matthieu",
-    lastname: "Bocquet",
-    role: "Administrator",
-    email: "matthieu@test.com",
-  },
-  {
-    firstname: "Sharon",
-    lastname: "Dupont",
-    role: "Administrator",
-    email: "sharon@test.com",
-  },
-  {
-    firstname: "Lisa",
-    lastname: "De Groof",
-    role: "Regular user",
-    email: "lisa@test.com",
-  },
-];
 
 interface UsersContextInterface {
   users: User[];
   setUsers: (users: User[]) => void;
   findUser: (email: string | undefined) => User | undefined;
+  isFetching: boolean;
 }
 
 export const UsersContext = React.createContext<UsersContextInterface>(
@@ -39,7 +14,11 @@ export const UsersContext = React.createContext<UsersContextInterface>(
 );
 
 const UsersProvider = ({ children }: { children: React.ReactNode }) => {
-  const [users, setContextUsers] = useState<User[]>(usersList);
+  const [users, setContextUsers] = useState<User[]>([]);
+
+  const { isFetching } = useGetUsers({
+    onSuccess: (users: User[]) => setUsers(users),
+  });
 
   const setUsers = (users: User[]) => setContextUsers(users);
 
@@ -51,9 +30,10 @@ const UsersProvider = ({ children }: { children: React.ReactNode }) => {
       users,
       setUsers,
       findUser,
+      isFetching,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [users]
+    [users, isFetching]
   );
 
   return (
