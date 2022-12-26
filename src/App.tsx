@@ -9,6 +9,7 @@ import en from "./translations/en";
 import Users from "./containers/Users";
 import User from "./containers/User";
 import UsersProvider from "./contexts/users";
+import NewUser from "./containers/NewUser";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -33,6 +34,7 @@ const App: React.FC = () => (
             <Route path="/" element={<></>} />
             <Route path="/client" element={<></>} />
             <Route path="/users" element={<Users />} />
+            <Route path="/users/new" element={<NewUser />} />
             <Route path="/users/:userEmail" element={<User />} />
             <Route path="/settings" element={<></>} />
           </Routes>

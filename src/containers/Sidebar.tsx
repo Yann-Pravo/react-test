@@ -9,9 +9,9 @@ import {
 } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import { SidebarContext } from "../contexts/sidebar";
-import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import Navigation from "../types/navigation";
+import { t } from "i18next";
 
 const navigation: Navigation[] = [
   { name: "client", href: "/", icon: UserCircleIcon },
@@ -20,7 +20,6 @@ const navigation: Navigation[] = [
 ];
 
 const Sidebar: React.FC = () => {
-  const { t } = useTranslation();
   const { sidebarOpen, setSidebarOpen } = useContext(SidebarContext);
 
   return (

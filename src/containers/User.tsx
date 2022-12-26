@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import { UsersContext } from "../contexts/users";
 
 const Users: React.FC = () => {
-  const { t } = useTranslation();
   const { userEmail } = useParams();
   const { findUser } = useContext(UsersContext);
 
